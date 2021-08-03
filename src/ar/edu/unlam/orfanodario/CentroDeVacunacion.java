@@ -5,7 +5,7 @@ import java.util.TreeSet;
 
 public class CentroDeVacunacion {
 
-private Set<Vacuna>personasVacunadas;
+private Set<Paciente>personasVacunadas;
 
 public CentroDeVacunacion(){
 	this.personasVacunadas=new TreeSet<>();
@@ -14,8 +14,8 @@ public CentroDeVacunacion(){
 
 public Boolean aplicarVacuna(Paciente paciente){
 	
-	if()
 	
+	this.personasVacunadas.add(paciente);
 }
 
 

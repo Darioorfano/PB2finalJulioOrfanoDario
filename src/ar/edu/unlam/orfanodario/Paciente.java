@@ -24,43 +24,47 @@ public class Paciente implements Comparable<Paciente> {
 
 	
 	public void vacunar(Vacuna vacuna) throws NoCovidVaccineException, NoMoreVaccineException {
+		if(this.vacunasAplicadas.size()>=2) {
+			
+			if (!this.vacunasAplicadas.contains(vacuna)) {
+				if (vacuna instanceof Rubeola) {
 
-		if (!this.vacunasAplicadas.contains(vacuna)) {
-			if (vacuna instanceof Rubeola) {
+					if (!this.tuvoRubeola) {
 
-				if (!this.tuvoRubeola) {
-
-					this.vacunasAplicadas.add(vacuna);
-				}
-
-			} else if (vacuna instanceof HepatitisA || vacuna instanceof HepatitisB || vacuna instanceof HepatitisC) {
-
-				if (!this.tuvoHepatitis) {
-
-					this.vacunasAplicadas.add(vacuna);
-				}
-			} else if (vacuna instanceof Covid19SegundaDosis) {
-				Boolean vacunaEncontradaPrimerDosis = false;
-				for (Vacuna vacunaPrimerDosis : vacunasAplicadas) {
-					if (vacunaPrimerDosis instanceof Covid19PrimerDosis) {
-
-						vacunaEncontradaPrimerDosis = true;
-					}else {
-						throw new NoCovidVaccineException();
-
-						
+						this.vacunasAplicadas.add(vacuna);
 					}
-				}
-				if (!vacunaEncontradaPrimerDosis) {
 
-					this.vacunasAplicadas.add(vacuna);
+				} else if (vacuna instanceof HepatitisA || vacuna instanceof HepatitisB || vacuna instanceof HepatitisC) {
+
+					if (!this.tuvoHepatitis) {
+
+						this.vacunasAplicadas.add(vacuna);
+					}
+				} else if (vacuna instanceof Covid19SegundaDosis) {
+					Boolean vacunaEncontradaPrimerDosis = false;
+					for (Vacuna vacunaPrimerDosis : vacunasAplicadas) {
+						if (vacunaPrimerDosis instanceof Covid19PrimerDosis) {
+
+							vacunaEncontradaPrimerDosis = true;
+						}else {
+							throw new NoCovidVaccineException();
+
+							
+						}
+					}
+					if (!vacunaEncontradaPrimerDosis) {
+
+						this.vacunasAplicadas.add(vacuna);
+					}
+
+				}else {
+					this.vacunasAplicadas.add(vacuna);	
 				}
 
-			}else {
-				this.vacunasAplicadas.add(vacuna);	
 			}
-
-		}else {
+		}
+		
+		else {
 			
 			throw new NoMoreVaccineException();
 		}

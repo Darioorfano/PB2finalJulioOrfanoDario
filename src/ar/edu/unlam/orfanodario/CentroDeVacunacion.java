@@ -16,22 +16,22 @@ public CentroDeVacunacion(){
 	
 }
 
-public void aplicarVacuna(Paciente paciente,Vacuna vacuna){
+public void aplicarVacuna(Paciente paciente,Vacuna vacuna) throws NoCovidVaccineException, NoMoreVaccineException{
 	
 	try {
 	paciente.vacunar(vacuna);
 
 		
 	}catch(NoMoreVaccineException e) {
-		
+		throw e;
 		
 	}catch (NoCovidVaccineException e) {
-		
+		throw e;
 	}
 	
 }
 
-public Set<Paciente> ordenarPlantelPorApellido(){
+public Set<Paciente> ordenarPacientesPorDni(){
 	Set<Paciente>pacientesOrdenadosPorDni=new TreeSet<>(new OrdenPorDni());
 	pacientesOrdenadosPorDni.addAll(this.personasVacunadas);
 	

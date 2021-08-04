@@ -3,6 +3,10 @@ package ar.edu.unlam.orfanodario;
 import java.util.Set;
 import java.util.TreeSet;
 
+import ar.edu.unlam.orfanodario.comparators.OrdenPorDni;
+import ar.edu.unlam.orfanodario.exceptions.NoCovidVaccineException;
+import ar.edu.unlam.orfanodario.exceptions.NoMoreVaccineException;
+
 public class CentroDeVacunacion {
 
 private Set<Paciente>personasVacunadas;
@@ -12,11 +16,28 @@ public CentroDeVacunacion(){
 	
 }
 
-public Boolean aplicarVacuna(Paciente paciente){
+public void aplicarVacuna(Paciente paciente,Vacuna vacuna){
 	
+	try {
+	paciente.vacunar(vacuna);
+
+		
+	}catch(NoMoreVaccineException e) {
+		
+		
+	}catch (NoCovidVaccineException e) {
+		
+	}
 	
-	this.personasVacunadas.add(paciente);
+}
+
+public Set<Paciente> ordenarPlantelPorApellido(){
+	Set<Paciente>pacientesOrdenadosPorDni=new TreeSet<>(new OrdenPorDni());
+	pacientesOrdenadosPorDni.addAll(this.personasVacunadas);
+	
+	return pacientesOrdenadosPorDni;
+}
+
 }
 
 
-}
